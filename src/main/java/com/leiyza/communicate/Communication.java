@@ -61,7 +61,7 @@ public class Communication {
             Message.MessageHead messageHead=new Message.MessageHead();
             messageHead.setSuccessFlag(false);
             Message.TextMessage textMessage=new Message.TextMessage();
-            textMessage.setMessageContent("与服务器连接失败,尝试退出重连，或联系管理员！");
+            textMessage.setMessageContent("与服务器连接断开,尝试退出重连，或联系管理员！");
             messageRes.setMessageHead(messageHead);
             messageRes.setTextMessage(textMessage);
             return messageRes;
@@ -69,7 +69,7 @@ public class Communication {
 
     }
     public void sendMsg(Message message){
-        if(client.sendMessageToServer(message)){
+        if(client.talkingSend(message)){
             logger.info("发送成功");
         }else {
             logger.info("发送失败");

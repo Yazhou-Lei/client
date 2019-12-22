@@ -1,4 +1,5 @@
 package com.leiyza.communicate;
+import com.leiyza.model.User;
 import org.apache.log4j.Logger;
 
 import java.io.*;
@@ -72,6 +73,9 @@ public class Client {
 
     }
     public boolean checkConnecting(){
+        if(oos==null){
+
+        }
         try {
             oos=new ObjectOutputStream(socket.getOutputStream());
             return true;
@@ -102,13 +106,40 @@ public class Client {
         logger.info("从服务器接收数据");
         Message message;
         try {
-            ois=new ObjectInputStream(socket.getInputStream());
+            if(ois==null){
+                logger.info("获取输入流");
+                ois=new ObjectInputStream(socket.getInputStream());
+            }
+            logger.info("获取输入流成功");
             message=(Message) ois.readObject();
             return message;
         }catch (IOException | ClassNotFoundException e){
             logger.info("接收失败");
-            e.printStackTrace();
-            return new Message();
+            return null;
+        }
+    }
+    public boolean talkingSend(Message message){
+        //talking 的时候不检查
+        try {
+            oos.writeObject(message);
+            oos.flush();
+            logger.info("发送成功");
+            return true;
+        }catch (Exception e){
+            logger.info("发送失败");
+            return false;
+        }
+
+    }
+    public Message talkingRecv(){
+        Message message;
+        try {
+            message=(Message) ois.readObject();
+            logger.info("接收成功");
+            return message;
+        }catch (Exception e){
+            logger.info("接收失败");
+            return null;
         }
     }
 }

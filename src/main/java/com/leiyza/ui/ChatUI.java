@@ -1,10 +1,8 @@
 package com.leiyza.ui;
 
-import com.leiyza.communicate.Commands;
-import com.leiyza.communicate.Communication;
-import com.leiyza.communicate.Message;
-import com.leiyza.communicate.MsgRecvThread;
+import com.leiyza.communicate.*;
 import com.leiyza.model.User;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,13 +10,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ChatUI implements ActionListener, MouseListener {
 
-    private JFrame root;
+    private static final Logger logger=Logger.getLogger(ChatUI.class);
+    private MsgRecvThread msgRecvThread=new MsgRecvThread();
+    private ProcessThread processThread=new ChatUI.ProcessThread();
+
+    private static JFrame root;
     private User user;
     private JPanel panelLeftUp;
     private JPanel panelLeftDown;
@@ -26,7 +29,7 @@ public class ChatUI implements ActionListener, MouseListener {
     private JPanel panelRightDown;
     private JButton sendButton;
     private JTextArea msgWriteArea;
-    private JTextArea logViewArea;
+    private static JTextArea logViewArea;
     private JScrollPane logPanel;
     private JLabel headImage;
     private JButton myFriendsButton;
@@ -34,17 +37,20 @@ public class ChatUI implements ActionListener, MouseListener {
     private JPanel myFriendsPanel;
     private CardLayout cardLayout;
 
-    private HashMap<String,User>myFriendsList;//我的好友
-    private List<JLabel>myFriendsListJLabel;//好友标签列表
-    private HashMap<String,User>strangersList;//陌生人
-    private List<JLabel>strangersListJLabel;//
-    private HashMap<String,User>blackList;//黑名单
-    private List<JLabel>blackListJLabel;//
+    private static HashMap<String,JLabel>friendsJLabelMap=new HashMap<>();//好友标签列表
+    private static HashMap<String,JLabel>strangersJLabelMap=new HashMap<>();//
+    private static HashMap<String,JLabel>blackJLabelMap=new HashMap<>();//
 
+    private static HashMap<String,User>friendMap=new HashMap<>();//
+    private static HashMap<String,User>strangerMap=new HashMap<>();
+    private static HashMap<String,User>blackMap=new HashMap<>();
+
+    private static final HashMap<User,ConcurrentLinkedQueue<Message>> friendArray=new HashMap<>();
+    private static final HashMap<User,ConcurrentLinkedQueue<Message>>strangerArray=new HashMap<>();
+    private static final HashMap<User,ConcurrentLinkedQueue<Message>>blackArray=new HashMap<>();
     private Communication communication;
-    private User toUser;
-    private MsgRecvThread thread;
-    private JLabel chatWithLabel;
+    private User toUser;//当前聊天对象
+    private JLabel chatWithLabel;//当前聊天对象
     //好友列表
     //第一张卡片
     JPanel jp1;
@@ -70,8 +76,8 @@ public class ChatUI implements ActionListener, MouseListener {
 
     Font font = new Font("仿宋", 0, 18);
 
-    ChatUI(User user) {
-        this.user = user;
+    ChatUI(Message loginMessage) {
+        this.user = loginMessage.getMessageHead().getFrom();
         root = new JFrame(user.getUserNo());
         root.setLayout(null);
         root.setSize(805, 600);
@@ -80,9 +86,14 @@ public class ChatUI implements ActionListener, MouseListener {
         root.setResizable(false);
         Container container = root.getContentPane();
         container.setLayout(null);
-        initMyFriendsList();//初始化好友列表
-        initStrangersList();//初始化陌生人列表
-        initBlackList();//初始化黑名单列表
+        friendArray.putAll(loginMessage.getRelationArrays().getFriendArray()==null?new HashMap<User,ConcurrentLinkedQueue<Message>>():loginMessage.getRelationArrays().getFriendArray());
+        logger.info("bb");
+        strangerArray.putAll(loginMessage.getRelationArrays().getStrangerArray()==null?new HashMap<User,ConcurrentLinkedQueue<Message>>():loginMessage.getRelationArrays().getStrangerArray());
+        blackArray.putAll(loginMessage.getRelationArrays().getBlackArray()==null?new HashMap<User,ConcurrentLinkedQueue<Message>>():loginMessage.getRelationArrays().getBlackArray());
+        initFriendMap();
+        initStrangerMap();
+        initBlackMap();
+
         initLeftUp();
         initLeftDown();
         initRightUp();
@@ -92,34 +103,22 @@ public class ChatUI implements ActionListener, MouseListener {
         container.add(panelRightUp);
         container.add(panelRightDown);
         root.setVisible(true);
-        //thread=new MsgRecvThread();
-        //thread.start();
+        msgRecvThread.start();
+        processThread.start();
     }
-    public void initMyFriendsList(){
-        myFriendsList=new HashMap<>();
-        for(int i=0;i<1;i++){
-            User user=new User();
-            user.setUserName("leiyazhou:"+i);
-            user.setUserNo("642555054"+i);
-            myFriendsList.put(user.getUserNo(),user);
+    public void initFriendMap(){
+        for(User user:friendArray.keySet()){
+            friendMap.put(user.getUserNo(),user);
         }
     }
-    public void initStrangersList(){
-        strangersList=new HashMap<>();
-        for(int i=0;i<5;i++){
-            User user=new User();
-            user.setUserName("leiyazhou:"+i);
-            user.setUserNo("642555054"+i);
-            strangersList.put(user.getUserNo(),user);
+    public void initStrangerMap(){
+        for(User user:strangerArray.keySet()){
+            strangerMap.put(user.getUserNo(),user);
         }
     }
-    public void initBlackList(){
-        blackList=new HashMap<>();
-        for(int i=0;i<5;i++){
-            User user=new User();
-            user.setUserName("leiyazhou:"+i);
-            user.setUserNo("642555054"+i);
-            blackList.put(user.getUserNo(),user);
+    public void initBlackMap(){
+        for(User user:blackArray.keySet()){
+            blackMap.put(user.getUserNo(),user);
         }
     }
     public void initLeftUp() {
@@ -145,9 +144,9 @@ public class ChatUI implements ActionListener, MouseListener {
         panelLeftDown.setBounds(0, 100, 200, 500);
         myFriendsButton=new JButton("我的好友");
         myFriendsButton.setBounds(0,0,200,20);
-        myFriendsListJLabel=new ArrayList<>();
-        strangersListJLabel=new ArrayList<>();
-        blackListJLabel=new ArrayList<>();
+        friendsJLabelMap=new HashMap<>();
+        strangersJLabelMap=new HashMap<>();
+        blackJLabelMap=new HashMap<>();
         firstCard();
         secondCard();
         thirdCard();
@@ -201,7 +200,7 @@ public class ChatUI implements ActionListener, MouseListener {
         jp2_jb2 = new JButton("> 陌生人");
         jp2_jb2.addActionListener(this);
         jp2_jb2.setLayout(null);
-        int y= Math.min((myFriendsList.size() * 25), 225);
+        int y= Math.min((friendMap.size() * 25), 225);
         jp2_jb2.setBounds(0, y+25+10, 200, 25);
         jp2_jb2.setHorizontalAlignment(SwingConstants.LEFT );
 
@@ -212,20 +211,30 @@ public class ChatUI implements ActionListener, MouseListener {
         jp2_jb3.setHorizontalAlignment(SwingConstants.LEFT );
 
         //
-        jp_jsp = new JPanel(new GridLayout(myFriendsList.size(),1));
+        jp_jsp = new JPanel(new GridLayout(friendMap.size(),1));
         jsp = new JScrollPane(jp_jsp);
 
         //初始化好友列表
-        for(String userNo:myFriendsList.keySet()){
+        for(Map.Entry<String,User>entry:friendMap.entrySet()){
+            ConcurrentLinkedQueue<Message>messagesFromUser=friendArray.get(entry.getValue());
+            User friend=entry.getValue();
             ImageIcon imageIcon = new ImageIcon("resources/Images/head.jpg");//第二种方法获取相应路径下的图片文件
             Icon icon = new ImageIcon(imageIcon.getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
-            String userHeadInfo = "<html><body>" + myFriendsList.get(userNo).getUserName() + "<br>(" + myFriendsList.get(userNo).getUserNo()+ ")</body></html>";
-            JLabel jLabel=new JLabel(userHeadInfo);
+            int count=messagesFromUser.size();
+            String msgCountText;
+            if(count>0){
+                msgCountText = "<html><body>" + friend.getUserName() +"     未读消息+"+count +"<br>(" + friend.getUserNo()+ ")</body></html>";
+            }
+            else {
+                msgCountText = "<html><body>" + friend.getUserName() +"<br>(" + friend.getUserNo()+ ")</body></html>";
+
+            }
+            JLabel jLabel=new JLabel(msgCountText);
             jLabel.setIcon(icon);
             jLabel.addMouseListener(this);
-            jLabel.setName(userNo);
+            jLabel.setName(friend.getUserNo());
             jLabel.setBorder(BorderFactory.createLineBorder(Color.CYAN));
-            myFriendsListJLabel.add(jLabel);
+            friendsJLabelMap.put(friend.getUserNo(),jLabel);
             jp_jsp.add(jLabel);
         }
         jsp.setBounds(1, 25, 200, y+10);
@@ -257,24 +266,33 @@ public class ChatUI implements ActionListener, MouseListener {
         jp3_jb3 = new JButton("> 黑名单");
         jp3_jb3.addActionListener(this);
         jp3_jb3.setLayout(null);
-        int y= Math.min((strangersList.size() * 25), 225);
+        int y= Math.min((strangerMap.size() * 25), 225);
         jp3_jb3.setBounds(0, y+50+10, 200, 25);
         jp3_jb3.setHorizontalAlignment(SwingConstants.LEFT );
 
-        jp_jsp2 = new JPanel(new GridLayout(strangersList.size(),1));
+        jp_jsp2 = new JPanel(new GridLayout(strangerMap.size(),1));
         jsp2 = new JScrollPane(jp_jsp2);
 
         //
-        for(String userNo:strangersList.keySet()){
+        for(Map.Entry<String,User>entry:strangerMap.entrySet()){
+            User stranger=entry.getValue();
+            ConcurrentLinkedQueue<Message>messagesFromUser=strangerArray.get(entry.getValue());
             ImageIcon imageIcon = new ImageIcon("resources/Images/head.jpg");//第二种方法获取相应路径下的图片文件
             Icon icon = new ImageIcon(imageIcon.getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
-            String userHeadInfo = "<html><body>" + strangersList.get(userNo).getUserName() + "<br>(" + strangersList.get(userNo).getUserNo()+ ")</body></html>";
-            JLabel jLabel=new JLabel(userHeadInfo);
+            int count=messagesFromUser.size();
+            String msgCountText;
+            if(count>0){
+                msgCountText= "<html><body>" + stranger.getUserName() +"     未读消息+"+count +"<br>(" + stranger.getUserNo()+ ")</body></html>";
+
+            }else {
+                msgCountText= "<html><body>" + stranger.getUserName() +"<br>(" + stranger.getUserNo()+ ")</body></html>";
+            }
+            JLabel jLabel=new JLabel(msgCountText);
             jLabel.setIcon(icon);
             jLabel.addMouseListener(this);
-            jLabel.setName(userNo);
+            jLabel.setName(stranger.getUserNo());
             jLabel.setBorder(BorderFactory.createLineBorder(Color.CYAN));
-            strangersListJLabel.add(jLabel);
+            strangersJLabelMap.put(stranger.getUserNo(),jLabel);
             jp_jsp2.add(jLabel);
         }
 
@@ -303,7 +321,7 @@ public class ChatUI implements ActionListener, MouseListener {
         jp4_jb2.setBounds(0, 25, 200, 25);
         jp4_jb2.setHorizontalAlignment(SwingConstants.LEFT );
 
-        int y= Math.min((blackList.size() * 25), 225);
+        int y= Math.min((blackMap.size() * 25), 225);
         jp4_jb3 = new JButton("↓ 黑名单");
         jp4_jb3.addActionListener(this);
         jp4_jb3.setLayout(null);
@@ -311,22 +329,30 @@ public class ChatUI implements ActionListener, MouseListener {
         jp4_jb3.setHorizontalAlignment(SwingConstants.LEFT );
 
         //假定10个好友
-        jp_jsp3 = new JPanel(new GridLayout(blackList.size(),1));
+        jp_jsp3 = new JPanel(new GridLayout(blackMap.size(),1));
         jsp3 = new JScrollPane(jp_jsp3);
 
-        for(String userNo:blackList.keySet()){
+        for(Map.Entry<String,User>entry:blackMap.entrySet()){
+            ConcurrentLinkedQueue<Message>messagesFromUser=blackArray.get(entry.getValue());
+            User black=entry.getValue();
             ImageIcon imageIcon = new ImageIcon("resources/Images/head.jpg");//第二种方法获取相应路径下的图片文件
             Icon icon = new ImageIcon(imageIcon.getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
-            String userHeadInfo = "<html><body>" + blackList.get(userNo).getUserName() + "<br>(" + blackList.get(userNo).getUserNo()+ ")</body></html>";
-            JLabel jLabel=new JLabel(userHeadInfo);
+            int count=messagesFromUser.size();
+            String msgCountText;
+            if(count>0){
+                msgCountText = "<html><body>" + black.getUserName() +"     未读消息+"+count +"<br>(" + black.getUserNo()+ ")</body></html>";
+            }else {
+                msgCountText = "<html><body>" + black.getUserName() +"<br>(" + black.getUserNo()+ ")</body></html>";
+            }
+
+            JLabel jLabel=new JLabel(msgCountText);
             jLabel.setIcon(icon);
             jLabel.addMouseListener(this);
-            jLabel.setName(userNo);
+            jLabel.setName(black.getUserNo());
             jLabel.setBorder(BorderFactory.createLineBorder(Color.CYAN));
-            blackListJLabel.add(jLabel);
+            blackJLabelMap.put(black.getUserNo(),jLabel);
             jp_jsp3.add(jLabel);
         }
-
         jsp3.setBounds(1, 75, 200, y+10);
 
         jp4.add(jsp3);
@@ -346,8 +372,10 @@ public class ChatUI implements ActionListener, MouseListener {
 
         if(toUser==null){
             chatWithLabel=new JLabel("null",JLabel.CENTER);
+            chatWithLabel.setName("null");
         }else {
             chatWithLabel=new JLabel("Chatting with "+toUser.getUserName()+"("+toUser.getUserNo()+")",JLabel.CENTER);
+            chatWithLabel.setName(toUser.getUserNo());
         }
         chatWithLabel.setFont(font);
         chatWithLabel.setBounds(0,0,600,20);
@@ -358,7 +386,7 @@ public class ChatUI implements ActionListener, MouseListener {
         logViewArea.setFont(font);
         logViewArea.setLineWrap(true);//自动换行
         logViewArea.setEditable(false);
-        logViewArea.append(user.getUserNo() + "(leiyza)\n" + "你好，世界！");
+        //logViewArea.append(user.getUserNo() + "(leiyza)\n" + "你好，世界！");
         logPanel = new JScrollPane(logViewArea);
         logPanel.setBounds(0, 20, 600, 380);
         panelRightUp.add(chatWithLabel);
@@ -377,15 +405,22 @@ public class ChatUI implements ActionListener, MouseListener {
         panelRightDown.add(sendButton);
         msgWriteArea = new JTextArea();
         msgWriteArea.setBounds(0, 0, 455, 200);
+        msgWriteArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         panelRightDown.add(msgWriteArea);
     }
 
-    public static void main(String[] args) {
-        User user = new User();
-        user.setUserNo("642555054");
-        user.setUserName("leiyazhou");
-        new ChatUI(user);
-    }
+    /*public void initUserMessageMap(){//初始化，每个人的消息队列
+        for(Map.Entry<String,User>entry:friendMap.entrySet()){
+            usersMsgQueueMap.put(entry.getKey(),new ConcurrentLinkedQueue<Message>());
+        }
+        for(Map.Entry<String,User>entry:strangerMap.entrySet()){
+            usersMsgQueueMap.put(entry.getKey(),new ConcurrentLinkedQueue<Message>());
+        }
+        for(Map.Entry<String,User>entry:blackMap.entrySet()){
+            usersMsgQueueMap.put(entry.getKey(),new ConcurrentLinkedQueue<Message>());
+        }
+
+    }*/
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -446,11 +481,18 @@ public class ChatUI implements ActionListener, MouseListener {
 
         //发送按钮
         if(e.getSource()==sendButton){
+            if(toUser==null){
+                JOptionPane.showMessageDialog(root,"请选择消息发送对象","提示",JOptionPane.WARNING_MESSAGE);
+                return;
+            }
             if(communication==null){
                 communication= Communication.getInstance();
             }
             Message message=getMsgToSend();
             if(check(message)){
+                msgWriteArea.setText("");
+                String msg=user.getUserNo() + "("+user.getUserName()+")\n" + message.getTextMessage().getMessageContent()+"\n";
+                logViewArea.append(msg);
                 communication.sendMsg(message);
             }
         }
@@ -469,6 +511,7 @@ public class ChatUI implements ActionListener, MouseListener {
             chatWithLabel.setText("null");
         }else {
             chatWithLabel.setText("Chatting with "+toUser.getUserName()+"("+toUser.getUserNo()+")");
+            chatWithLabel.setName(toUser.getUserNo());
         }
     }
 
@@ -500,28 +543,107 @@ public class ChatUI implements ActionListener, MouseListener {
         return message;
     }
     public User getToUser(MouseEvent e){
-        for(int i=0;i<myFriendsListJLabel.size();i++){
-            if(e.getSource()==myFriendsListJLabel.get(i)){
-                return myFriendsList.get(myFriendsListJLabel.get(i).getName());
-            }
+        String name=e.getComponent().getName();
+        if(toUser!=null&&!name.equals(toUser.getUserNo())){
+            logViewArea.setText("");
         }
-        for(int i=0;i<strangersListJLabel.size();i++){
-            if(e.getSource()==strangersListJLabel.get(i)){
-                return strangersList.get(strangersListJLabel.get(i).getName());
+        if(friendsJLabelMap.containsKey(name)){
+            logger.info("点击了我的好友"+name);
+            User from=friendMap.get(name);
+            ConcurrentLinkedQueue<Message>queue=friendArray.get(from);
+            while (!queue.isEmpty()){
+                Message messageOld=queue.poll();
+                logViewArea.append(from.getUserNo() +"("+from.getUserName() +")\n" + messageOld.getTextMessage().getMessageContent()+"\n");
             }
+            String msgCountText = "<html><body>" + from.getUserName() +"<br>(" + from.getUserNo()+ ")</body></html>";
+            ChatUI.friendsJLabelMap.get(from.getUserNo()).setText(msgCountText);
+            return friendMap.get(name);
         }
-        for(int i=0;i<blackListJLabel.size();i++){
-            if(e.getSource()==blackListJLabel.get(i)){
-                return blackList.get(blackListJLabel.get(i).getName());
+        if(strangersJLabelMap.containsKey(name)){
+            logger.info("点击了我的陌生人"+name);
+            User from=strangerMap.get(name);
+            ConcurrentLinkedQueue<Message>queue=strangerArray.get(from);
+            while (!queue.isEmpty()){
+                Message messageOld=queue.poll();
+                logViewArea.append(from.getUserNo() +"("+from.getUserName() +")\n" + messageOld.getTextMessage().getMessageContent()+"\n");
             }
+            String msgCountText = "<html><body>" + from.getUserName() +"<br>(" + from.getUserNo()+ ")</body></html>";
+            ChatUI.strangersJLabelMap.get(from.getUserNo()).setText(msgCountText);
+            return strangerMap.get(name);
+        }
+        if(blackJLabelMap.containsKey(name)){
+            logger.info("点击了我的黑名单"+name);
+            User from=blackMap.get(name);
+            ConcurrentLinkedQueue<Message>queue=blackArray.get(from);
+            while (!queue.isEmpty()){
+                Message messageOld=queue.poll();
+                logViewArea.append(from.getUserNo() +"("+from.getUserName() +")\n" + messageOld.getTextMessage().getMessageContent()+"\n");
+            }
+            String msgCountText = "<html><body>" + from.getUserName() +"<br>(" + from.getUserNo()+ ")</body></html>";
+            ChatUI.blackJLabelMap.get(from.getUserNo()).setText(msgCountText);
+            return blackMap.get(name);
         }
         return null;
     }
-    public HashMap<String, User> getMyFriendsList() {
-        return myFriendsList;
+    public class ProcessThread extends Thread{
+        public void run() {
+            while (!msgRecvThread.isStopped()){
+                if(!MessageQueue.messageQueue.isEmpty()){
+                    Message message=MessageQueue.messageQueue.poll();
+                    assert message != null;
+                    logger.info("收到来自:"+message.getMessageHead().getFrom().getUserNo()+"的消息"+message.getTextMessage().getMessageContent());
+                    if(Commands.STOPPED_BY_OTHER.equals(message.getMessageHead().getCommandType())){
+                        msgRecvThread.Stop();
+                        JOptionPane.showMessageDialog(ChatUI.root,message.getTextMessage().getMessageContent(),"error",JOptionPane.ERROR_MESSAGE);
+                    }else if(Commands.TALKING.equals(message.getMessageHead().getCommandType())){
+                        logger.info("message from:"+message.getMessageHead().getFrom().toString()+",msg body:"+message.getTextMessage().getMessageContent() );
+                        parseMessage(message);
+                    }
+                }
+            }
+            System.exit(0);
+        }
+        public void parseMessage(Message message){
+            User from=message.getMessageHead().getFrom();
+            from=friendMap.get(from.getUserNo());
+            if(toUser!=null){
+                logger.info("当前聊天的是"+toUser.getUserNo()+" label"+chatWithLabel.getName());
+            }
+            if(chatWithLabel.getName().equals(from.getUserNo())){
+                ConcurrentLinkedQueue<Message>queue=friendArray.get(from);
+                while (!queue.isEmpty()){
+                    Message messageOld=queue.poll();
+                    logViewArea.append(from.getUserNo() +"("+from.getUserName() +")\n" + messageOld.getTextMessage().getMessageContent()+"\n");
+                }
+                logViewArea.append(from.getUserNo() +"("+from.getUserName() +")\n" + message.getTextMessage().getMessageContent()+"\n");
+            }else {
+                if(ChatUI.friendMap.containsKey(from.getUserNo())){
+                    from=friendMap.get(from.getUserNo());
+                    friendArray.get(from).add(message);
+                    int count=friendArray.get(from).size();
+                    String msgCountText = "<html><body>" + from.getUserName() +"     未读消息+"+count +"<br>(" + from.getUserNo()+ ")</body></html>";
+                    logger.info(msgCountText);
+                    ChatUI.friendsJLabelMap.get(from.getUserNo()).setText(msgCountText);
+                }else if(ChatUI.strangerMap.containsKey(from.getUserNo())){
+                    from=strangerMap.get(from.getUserNo());
+                    strangerArray.get(from).add(message);
+                    int count=strangerArray.get(from).size();
+                    String msgCountText = "<html><body>" + from.getUserName() +"     未读消息+"+count +"<br>(" + from.getUserNo()+ ")</body></html>";
+                    ChatUI.strangersJLabelMap.get(from.getUserNo()).setText(msgCountText);
+                }else if(ChatUI.blackMap.containsKey(from.getUserNo())){
+                    from=blackMap.get(from.getUserNo());
+                    blackArray.get(from).add(message);
+                    int count=blackArray.get(from).size();
+                    String msgCountText = "<html><body>" + from.getUserName() +"     未读消息+"+count +"<br>(" + from.getUserNo()+ ")</body></html>";
+                    ChatUI.blackJLabelMap.get(from.getUserNo()).setText(msgCountText);
+                }
+            }
+            return;
+        }
+    }
+    public void startProcess(){
+        msgRecvThread.start();
+        processThread.start();
     }
 
-    public void setMyFriendsList(HashMap<String, User> myFriendsList) {
-        this.myFriendsList = myFriendsList;
-    }
 }

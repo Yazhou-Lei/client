@@ -1,7 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8308bd60-7408-4f0e-a280-56397ff55528" name="Default Changelist" comment="" />
+    <list default="true" id="69e776b4-3f8f-42f7-bc7b-9fe482d7b39b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Commands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Commands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Communication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Communication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/MessageQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/MessageQueue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/MsgRecvThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/MsgRecvThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leiyza/ui/LoginFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leiyza/ui/LoginFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/client.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/MyFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/MyFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/Test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Commands.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Commands.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Communication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Communication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Message$FileMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Message$FileMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Message$ImageMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Message$ImageMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Message$MessageHead.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Message$MessageHead.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Message$TextMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Message$TextMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Message.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/MessageQueue.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/MessageQueue.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/MsgRecvThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/MsgRecvThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/ui/ChatUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/ui/ChatUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/ui/LoginFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/ui/LoginFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/ui/LoginPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/ui/LoginPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/ui/RegisterPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/ui/RegisterPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/leiyza/ChatReceiver$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/leiyza/ChatReceiver$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/leiyza/ChatReceiver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/leiyza/ChatReceiver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/leiyza/ChatSender$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/leiyza/ChatSender$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/leiyza/ChatSender.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/leiyza/ChatSender.class" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11,10 +46,12 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -24,29 +61,16 @@
         <option name="userSettingsFile" value="D:\apache-maven-3.5.4\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="importAutomatically" value="true" />
-      </MavenImportingSettings>
-    </option>
   </component>
-  <component name="ProjectId" id="1U9foykXj13sXY8FmX5eCCGps9C" />
+  <component name="ProjectId" id="1VK2stoQxD3fV8Jx9dWj46zJAoO" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../client" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\JavaLearning\leiyz\client\src\main\resources" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\JavaLearning\leiyz\client\src\main\java\com\leiyza" />
-    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -60,7 +84,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ChatUI">
+  <component name="RunManager" selected="Application.Test">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.leiyza.App" />
       <module name="client" />
@@ -74,46 +98,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ChatSender" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.leiyza.ChatSender" />
-      <module name="client" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.leiyza.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ChatUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.leiyza.ui.ChatUI" />
-      <module name="client" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.leiyza.ui.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LoginFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.leiyza.ui.LoginFrame" />
-      <module name="client" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.leiyza.ui.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="Test" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.leiyza.Test" />
       <module name="client" />
       <extension name="coverage">
@@ -128,11 +113,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ChatUI" />
         <item itemvalue="Application.App" />
-        <item itemvalue="Application.Test" />
-        <item itemvalue="Application.LoginFrame" />
-        <item itemvalue="Application.ChatSender" />
       </list>
     </recent_temporary>
   </component>
@@ -141,114 +122,93 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="8308bd60-7408-4f0e-a280-56397ff55528" name="Default Changelist" comment="" />
-      <created>1574773910793</created>
+      <changelist id="69e776b4-3f8f-42f7-bc7b-9fe482d7b39b" name="Default Changelist" comment="" />
+      <created>1576987675441</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1574773910793</updated>
-      <workItem from="1574773914326" duration="12283000" />
-      <workItem from="1576158326847" duration="6443000" />
-      <workItem from="1576235829371" duration="5080000" />
-      <workItem from="1576505097173" duration="4518000" />
-      <workItem from="1576509651826" duration="5026000" />
-      <workItem from="1576589361253" duration="12083000" />
-      <workItem from="1576676114781" duration="6413000" />
-      <workItem from="1576683575377" duration="1325000" />
-      <workItem from="1576761527645" duration="8842000" />
-      <workItem from="1576841203863" duration="17684000" />
-      <workItem from="1576905829511" duration="11052000" />
-      <workItem from="1576917262345" duration="14436000" />
-      <workItem from="1576949790281" duration="27000" />
+      <updated>1576987675441</updated>
+      <workItem from="1576987676980" duration="71000" />
+      <workItem from="1576989197360" duration="15383000" />
+      <workItem from="1577009106300" duration="21085000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/commuicate/Client.java</url>
-          <line>26</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/commuicate/Client.java</url>
-          <line>15</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/commuicate/Communication.java</url>
-          <line>5</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/LoginFrame.java</url>
-          <line>89</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Client.java</url>
-          <line>104</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Client.java</url>
-          <line>105</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Client.java</url>
-          <line>85</line>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Client.java</url>
-          <line>94</line>
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Client.java</url>
-          <line>95</line>
-          <option name="timeStamp" value="25" />
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java</url>
+          <line>494</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java</url>
-          <line>466</line>
-          <option name="timeStamp" value="29" />
+          <line>88</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/RegisterPanel.java</url>
-          <line>86</line>
-          <properties class="com.leiyza.ui.RegisterPanel" method="getUser">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="6" />
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java</url>
+          <line>91</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Communication.java</url>
-          <line>15</line>
-          <properties class="com.leiyza.communicate.Communication" method="login">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="16" />
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java</url>
+          <line>90</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Client.java</url>
-          <line>83</line>
-          <properties class="com.leiyza.communicate.Client" method="sendMessageToServer">
-            <option name="EMULATED" value="true" />
-          </properties>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java</url>
+          <line>611</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java</url>
+          <line>622</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java</url>
+          <line>549</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java</url>
+          <line>591</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java</url>
+          <line>594</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java</url>
+          <line>592</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Client.java</url>
-          <line>100</line>
-          <properties class="com.leiyza.communicate.Client" method="recvMessageFromServer">
+          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Message.java</url>
+          <line>141</line>
+          <properties class="com.leiyza.communicate.Message.RelationArrays" method="getFriendArray">
             <option name="EMULATED" value="true" />
           </properties>
-          <option name="timeStamp" value="19" />
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

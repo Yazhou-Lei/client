@@ -75,15 +75,21 @@ public class LoginFrame extends JFrame implements ActionListener {
             }
             User  user=loginPanel.getUser();
             Message message =communication.login(user);
-            if(message.getMessageHead().isSuccessFlag())
-            {
-                logger.info(message.getTextMessage().getMessageContent());
-                this.dispose();
-                new ChatUI(message.getMessageHead().getFrom());
+            if(message!=null){
+                if(message.getMessageHead().isSuccessFlag())
+                {
+                    logger.info(message.getTextMessage().getMessageContent());
+                    this.dispose();
+                    ChatUI chatUI=new ChatUI(message);
+                    //chatUI.startProcess();
+                }else {
+                    logger.info(message.getTextMessage().getMessageContent());
+                    JOptionPane.showMessageDialog(this,message.getTextMessage().getMessageContent(),"登录失败！",JOptionPane.ERROR_MESSAGE);
+                }
             }else {
-                logger.info(message.getTextMessage().getMessageContent());
-                JOptionPane.showMessageDialog(this,message.getTextMessage().getMessageContent(),"登录失败！",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,"与服务器连接断开,请尝试重新启动或联系管理员","登录失败！",JOptionPane.ERROR_MESSAGE);
             }
+
 
         }
     }
@@ -97,14 +103,17 @@ public class LoginFrame extends JFrame implements ActionListener {
                 communication=Communication.getInstance();
             }
             Message message =communication.register(user);
-            if(!message.getMessageHead().isSuccessFlag()){
-                logger.info(message.getTextMessage().getMessageContent());
-                JOptionPane.showMessageDialog(this,message.getTextMessage().getMessageContent(),"error",JOptionPane.ERROR_MESSAGE);
-            }
-            else {
-                logger.info(message.getTextMessage().getMessageContent());
-                JOptionPane.showMessageDialog(this,message.getTextMessage().getMessageContent(),"succeed",JOptionPane.INFORMATION_MESSAGE);
-                gotoLoginPanel();
+            if(message!=null) {
+                if (!message.getMessageHead().isSuccessFlag()) {
+                    logger.info(message.getTextMessage().getMessageContent());
+                    JOptionPane.showMessageDialog(this, message.getTextMessage().getMessageContent(), "注册失败", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    logger.info(message.getTextMessage().getMessageContent());
+                    JOptionPane.showMessageDialog(this, message.getTextMessage().getMessageContent(), "注册成功", JOptionPane.INFORMATION_MESSAGE);
+                    gotoLoginPanel();
+                }
+            }else {
+                JOptionPane.showMessageDialog(this,"与服务器连接断开,请尝试重新启动或联系管理员","注册失败！",JOptionPane.ERROR_MESSAGE);
             }
         }
     }
