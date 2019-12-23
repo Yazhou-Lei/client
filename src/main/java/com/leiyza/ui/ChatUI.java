@@ -24,6 +24,7 @@ public class ChatUI implements ActionListener, MouseListener {
     private static JFrame root;
     private User user;
     private JPanel panelLeftUp;
+    private JPanel panelLefMiddle;
     private JPanel panelLeftDown;
     private JPanel panelRightUp;
     private JPanel panelRightDown;
@@ -36,6 +37,11 @@ public class ChatUI implements ActionListener, MouseListener {
     private JScrollPane myFriendsJSP;
     private JPanel myFriendsPanel;
     private CardLayout cardLayout;
+    private JTextField addFriendFiled;
+    private JTextField deleteFriendFiled;
+    private JButton addFriendButton;
+    private JButton deleteFriendButton;
+
 
     private static HashMap<String,JLabel>friendsJLabelMap=new HashMap<>();//好友标签列表
     private static HashMap<String,JLabel>strangersJLabelMap=new HashMap<>();//
@@ -44,6 +50,7 @@ public class ChatUI implements ActionListener, MouseListener {
     private static HashMap<String,User>friendMap=new HashMap<>();//
     private static HashMap<String,User>strangerMap=new HashMap<>();
     private static HashMap<String,User>blackMap=new HashMap<>();
+    private static final List<String>hasSendMsgToAdd=new ArrayList<>();
 
     private static final HashMap<User,ConcurrentLinkedQueue<Message>> friendArray=new HashMap<>();
     private static final HashMap<User,ConcurrentLinkedQueue<Message>>strangerArray=new HashMap<>();
@@ -95,10 +102,12 @@ public class ChatUI implements ActionListener, MouseListener {
         initBlackMap();
 
         initLeftUp();
+        initLeftMiddle();
         initLeftDown();
         initRightUp();
         initRightDown();
         container.add(panelLeftUp);
+        container.add(panelLefMiddle);
         container.add(panelLeftDown);
         container.add(panelRightUp);
         container.add(panelRightDown);
@@ -135,13 +144,39 @@ public class ChatUI implements ActionListener, MouseListener {
         panelLeftUp.add(headImage);
 
     }
+    public void initLeftMiddle(){
+        panelLefMiddle = new JPanel();
+        panelLefMiddle.setLayout(null);
+        panelLefMiddle.setBackground(Color.CYAN);
+        panelLefMiddle.setBounds(0, 101, 200, 60);
+        Font fontMiddle = new Font("仿宋", 0, 14);
+        JLabel jLabel=new JLabel("输入账号:");
+        jLabel.setFont(fontMiddle);
+        jLabel.setBounds(5,10,65,20);
+        addFriendFiled=new JTextField();
+        addFriendFiled.setBounds(70,10,120,20);
+        addFriendButton=new JButton("添加");
+        addFriendButton.setFont(fontMiddle);
+        addFriendButton.setBounds(20,35,65,18);
+        addFriendButton.addActionListener(this);
+        deleteFriendButton=new JButton("删除");
+        deleteFriendButton.setFont(fontMiddle);
+        deleteFriendButton.setBounds(110,35,65,18);
+        deleteFriendButton.addActionListener(this);
+        panelLefMiddle.add(jLabel);
+        panelLefMiddle.add(addFriendFiled);
+        panelLefMiddle.add(addFriendButton);
+        panelLefMiddle.add(deleteFriendButton);
 
+
+
+    }
     public void initLeftDown() {
         panelLeftDown = new JPanel();
         panelLeftDown.setOpaque(false);
         cardLayout=new CardLayout();
         panelLeftDown.setBackground(Color.red);
-        panelLeftDown.setBounds(0, 100, 200, 500);
+        panelLeftDown.setBounds(0, 161, 200, 500);
         myFriendsButton=new JButton("我的好友");
         myFriendsButton.setBounds(0,0,200,20);
         friendsJLabelMap=new HashMap<>();
@@ -496,6 +531,24 @@ public class ChatUI implements ActionListener, MouseListener {
                 communication.sendMsg(message);
             }
         }
+        if(e.getSource()==addFriendButton){//添加好友
+            String userNo=addFriendFiled.getText();
+            if(!checkAddFriend(userNo)){
+                return;
+            }
+            hasSendMsgToAdd.add(userNo);
+            User friend=new User();
+            friend.setUserNo(userNo);
+            Message message=new Message();
+            message.getMessageHead().setFrom(user);
+            message.getMessageHead().setCommandType(Commands.ADDFRIEND);
+            message.getMessageHead().setTo(friend);
+            if(communication==null){
+                communication= Communication.getInstance();
+            }
+            communication.sendMsg(message);
+            JOptionPane.showMessageDialog(root,"已发送");
+        }
     }
     public boolean check(Message message){
         if(message.getTextMessage().getMessageContent()==null||message.getTextMessage().getMessageContent().length()<=0){
@@ -504,6 +557,27 @@ public class ChatUI implements ActionListener, MouseListener {
             return true;
         }
     }
+    public boolean checkAddFriend(String userNo){
+       if(!userNo.matches("[1-9][0-9]{4,9}")){
+            JOptionPane.showMessageDialog(root,"请输入由5-10位数字组成且首位非0的字符串","提示",JOptionPane.ERROR_MESSAGE);
+            return false;
+       }else if(friendMap.containsKey(userNo)){
+           JOptionPane.showMessageDialog(root,"该用户已是您的好友","提示",JOptionPane.ERROR_MESSAGE);
+           return false;
+       }else if(blackMap.containsKey(userNo)){
+           JOptionPane.showMessageDialog(root,"该用户在您的黑名单中","提示",JOptionPane.ERROR_MESSAGE);
+           return false;
+       }else if(strangerMap.containsKey(userNo)){
+           JOptionPane.showMessageDialog(root,"该用户在您的陌生人列表中","提示",JOptionPane.ERROR_MESSAGE);
+           return false;
+       }else if(hasSendMsgToAdd.contains(userNo)){
+           JOptionPane.showMessageDialog(root,"您发送添加好友请求，请勿重复发送","提示",JOptionPane.ERROR_MESSAGE);
+           return false;
+       }else {
+           return true;
+       }
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         toUser=getToUser(e);
@@ -598,6 +672,9 @@ public class ChatUI implements ActionListener, MouseListener {
                     }else if(Commands.TALKING.equals(message.getMessageHead().getCommandType())){
                         logger.info("message from:"+message.getMessageHead().getFrom().toString()+",msg body:"+message.getTextMessage().getMessageContent() );
                         parseMessage(message);
+                    }else if(Commands.ADDFRIEND.equals(message.getMessageHead().getCommandType())){
+                        logger.info("message from:"+message.getMessageHead().getFrom().toString()+",msg body:"+message.getTextMessage().getMessageContent() );
+
                     }
                 }
             }

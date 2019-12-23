@@ -2,40 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69e776b4-3f8f-42f7-bc7b-9fe482d7b39b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Commands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Commands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Communication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Communication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Message.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/MessageQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/MessageQueue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/MsgRecvThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leiyza/communicate/MsgRecvThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leiyza/ui/LoginFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leiyza/ui/LoginFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/client.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/MyFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/MyFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/Test.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Client.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Commands.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Commands.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Communication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Communication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Message$FileMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Message$FileMessage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Message$ImageMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Message$ImageMessage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Message$MessageHead.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Message$MessageHead.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Message$TextMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Message$TextMessage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/Message.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/MessageQueue.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/MessageQueue.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/MsgRecvThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/communicate/MsgRecvThread.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/ui/ChatUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/ui/ChatUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/ui/LoginFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/ui/LoginFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/ui/LoginPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/ui/LoginPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leiyza/ui/RegisterPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leiyza/ui/RegisterPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/leiyza/ChatReceiver$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/leiyza/ChatReceiver$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/leiyza/ChatReceiver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/leiyza/ChatReceiver.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/leiyza/ChatSender$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/leiyza/ChatSender$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/leiyza/ChatSender.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/leiyza/ChatSender.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +55,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Test">
+  <component name="RunManager" selected="Application.App">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.leiyza.App" />
       <module name="client" />
@@ -130,6 +101,7 @@
       <workItem from="1576987676980" duration="71000" />
       <workItem from="1576989197360" duration="15383000" />
       <workItem from="1577009106300" duration="21085000" />
+      <workItem from="1577112292536" duration="7417000" />
     </task>
     <servers />
   </component>
@@ -152,55 +124,35 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java</url>
-          <line>494</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java</url>
-          <line>88</line>
+          <line>95</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java</url>
-          <line>91</line>
+          <line>98</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java</url>
-          <line>90</line>
+          <line>97</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java</url>
-          <line>611</line>
+          <line>688</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java</url>
-          <line>622</line>
+          <line>699</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java</url>
-          <line>549</line>
+          <line>623</line>
           <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java</url>
-          <line>591</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java</url>
-          <line>594</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/ui/ChatUI.java</url>
-          <line>592</line>
-          <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/leiyza/communicate/Message.java</url>
